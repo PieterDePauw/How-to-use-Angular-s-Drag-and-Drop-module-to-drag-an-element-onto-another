@@ -1,0 +1,44 @@
+<div cdkDropListGroup>
+	<div class="example-container">
+		<h2>Drop me</h2>
+
+		<div class="example-list" id="todoList">
+			<button mat-button (click)="click(count[i])" *ngFor="let item of todo;let i=index"
+        cdkDropList cdkDrag
+        cdkDropListSortingDisabled="true" 
+        [cdkDragDisabled]="true"
+				[cdkDropListConnectedTo]="[doneList]" 
+				(cdkDropListDropped)="drop($event,i)" class="btn-example-box" [id]="'todo'+i"
+        >{{item}}<span *ngIf="count[i]"> ({{count[i].length}})</span></button>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<h2>Drag me</h2>
+		<div>
+			<div [style.display]="onDrag?'none':''" cdkDropList id="doneList" [cdkDropListData]="done"
+				class="example-list" (cdkDropListDropped)="drop($event)">
+				<div class="example-box" *ngFor="let item of done" 
+           cdkDrag 
+          (cdkDragStarted)="onDrag=true"
+					(cdkDragEnded)="onDrag=false">
+          {{item}}
+					<div class="line" *cdkDragPlaceholder></div>
+				</div>
+			</div>
+		</div>
+		<div class="background" [style.display]="!onDrag?'none':''">
+			<div class="example-list"  
+>
+				<div class="example-box" cdkDropList [id]="'foul'+i"         cdkDropListSortingDisabled="false"
+        [cdkDragDisabled]="true" *ngFor="let item of done" cdkDrag >{{item}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Copyright 2019 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
